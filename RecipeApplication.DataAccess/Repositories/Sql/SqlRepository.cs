@@ -40,14 +40,14 @@ public class SqlRepository<TEntity> : IRepository<TEntity> where TEntity : BaseE
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> DoesEntityExist(int id)
+    {
+        return await _context.Set<TEntity>().AnyAsync(x => !x.IsDeleted && x.Id == id);
+    }
     
     public async Task<int> SaveChangesAsync()
     {
         return await (_context.SaveChangesAsync());
-    }
-
-    public void SaveChanges()
-    {
-        _context.SaveChanges();
     }
 }
