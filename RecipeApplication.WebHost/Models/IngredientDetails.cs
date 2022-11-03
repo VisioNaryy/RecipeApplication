@@ -1,6 +1,6 @@
 ﻿namespace RecipeApplication.Models;
 
-public class Item
+public class IngredientDetails
 {
     public string Name { get; set; }
     

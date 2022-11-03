@@ -13,22 +13,9 @@ public class RecipeRepository : SqlRepository<Recipe>, IRecipeRepository
         _context = context;
     }
 
-    public async Task<Recipe> GetExistingRecipe(int id)
+    public async Task<Recipe?> GetExistingRecipe(int id)
     {
-        var recipe = await _context.Recipes.Include(x => x.Ingredients).SingleOrDefaultAsync(x => !x.IsDeleted && x.Id == id);
-
-        if (recipe == null) 
-            throw new ArgumentNullException(nameof(recipe));
-        
-        return recipe;
-    }
-
-    public async Task CreateRecipe(Recipe recipe)
-    {
-        if (recipe == null) 
-            throw new ArgumentNullException(nameof(recipe));
-
-        await _context.Recipes.AddAsync(recipe);
+        return await _context.Recipes.Include(x => x.Ingredients).SingleOrDefaultAsync(x => !x.IsDeleted && x.Id == id);
     }
 
     public async Task DeleteRecipe(Recipe recipe)

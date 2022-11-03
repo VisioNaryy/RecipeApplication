@@ -12,7 +12,7 @@ public interface IRepository<TEntity> where TEntity: BaseEntity
     
     Task RemoveAsync(TEntity entity);
 
-    Task<int> SaveChangesAsync();
+    Task<bool> DoesEntityExist(int id);
 
-    void SaveChanges();
+    Task<int> SaveChangesAsync();
 }

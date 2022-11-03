@@ -6,9 +6,7 @@ namespace RecipeApplication.DataAccess.Repositories;
 
 public interface IRecipeRepository : IRepository<Recipe>
 {
-    Task<Recipe> GetExistingRecipe(int id);
-    
-    Task CreateRecipe(Recipe recipeCreateDto);
+    Task<Recipe?> GetExistingRecipe(int id);
 
     Task DeleteRecipe(Recipe recipe);
 }

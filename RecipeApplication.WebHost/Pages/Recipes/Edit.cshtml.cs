@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RecipeApplication.Filters.Async;
+using RecipeApplication.Filters.Sync;
 using RecipeApplication.Models;
 using RecipeApplication.Services;
 
 namespace RecipeApplication.Pages.Recipes;
 
+[PageEnsureRecipeExistsAsync]
 public class Edit : PageModel
 {
-    [BindProperty]
-    public RecipeToUpdate Input { get; set; }
+    [BindProperty] public RecipeToUpdate? Input { get; set; } = new();
     private readonly IRecipesService _service;
 
     public Edit(IRecipesService service)

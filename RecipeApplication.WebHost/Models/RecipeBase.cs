@@ -6,7 +6,7 @@ namespace RecipeApplication.Models;
 public class RecipeBase
 {
     [Required, StringLength(100)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     [Range(0, 24), DisplayName("Time to cook (hrs)")]
     public int TimeToCookHrs { get; set; }
@@ -14,7 +14,7 @@ public class RecipeBase
     [Range(0, 59), DisplayName("Time to cook (mins)")]
     public int TimeToCookMins { get; set; }
     
-    public string Method { get; set; }
+    public string? Method { get; set; }
     
     [DisplayName("Vegetarian?")]
     public bool IsVegetarian { get; set; }

@@ -11,8 +11,6 @@ public class Recipe : BaseEntity
     public bool IsVegetarian { get; set; }
 
     public bool IsVegan { get; set; }
-
-    public string TestField { get; set; }
     
     public DateTimeOffset LastModified { get; set; }
 

@@ -20,7 +20,7 @@ public class RecipesService : IRecipesService
     {
         var recipe = _mapper.Map<RecipeToCreate, Recipe>(recipeToCreate);
 
-        await _recipeRepo.CreateRecipe(recipe);
+        await _recipeRepo.AddAsync(recipe!);
         await _recipeRepo.SaveChangesAsync();
 
         return recipe.Id;
@@ -62,14 +62,14 @@ public class RecipesService : IRecipesService
     public async Task<RecipeDetails?> GetRecipeDetails(int recipeId)
     {
         var recipe = await _recipeRepo.GetExistingRecipe(recipeId);
-        
-        return _mapper.Map<Recipe, RecipeDetails>(recipe);
+
+        return _mapper.Map<Recipe, RecipeDetails>(recipe!);
     }
     
     public async Task<RecipeToUpdate?> GetRecipeForUpdate(int recipeId)
     {
         var recipe = await _recipeRepo.GetExistingRecipe(recipeId);
-        
-        return _mapper.Map<Recipe, RecipeToUpdate>(recipe);
+
+        return _mapper.Map<Recipe, RecipeToUpdate>(recipe!);
     }
 }

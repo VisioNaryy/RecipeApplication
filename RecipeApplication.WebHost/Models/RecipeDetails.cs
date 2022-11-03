@@ -10,5 +10,5 @@ public class RecipeDetails
     
     public DateTimeOffset LastModified { get; set; }
 
-    public IEnumerable<Item> Ingredients { get; set; }
+    public IEnumerable<IngredientDetails> Ingredients { get; set; }
 }

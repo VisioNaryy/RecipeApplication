@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RecipeApplication.Filters.Async;
 using RecipeApplication.Models;
 using RecipeApplication.Services;
 
 namespace RecipeApplication.Pages.Recipes;
 
+[PageEnsureRecipeExistsAsync]
 public class View : PageModel
 {
-    public RecipeDetails? Recipe { get; set; }
+    public RecipeDetails? Recipe { get; set; } = new();
     
     private readonly IRecipesService _service;
 

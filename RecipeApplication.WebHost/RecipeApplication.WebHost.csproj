@@ -30,4 +30,18 @@
       <ProjectReference Include="..\RecipeApplication.DataAccess\RecipeApplication.DataAccess.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\RecipeNoFilters\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\RecipeNoFilters\_ValidationScriptsPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Recipes\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Recipes\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Recipes\View.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\Recipes\_EditRecipePartial.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="RecipeNoFilters\_ViewStart.cshtml" />
+    </ItemGroup>
+
 </Project>
