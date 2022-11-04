@@ -6,6 +6,13 @@ namespace RecipeApplication.Filters.Async;
 
 public class PageEnsureRecipeExistsAsyncFilter : IAsyncPageFilter
 {
+    private readonly IRecipeRepository _recipeRepo;
+
+    public PageEnsureRecipeExistsAsyncFilter(IRecipeRepository recipeRepo)
+    {
+        _recipeRepo = recipeRepo;
+    }
+    
     public Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
     {
         return Task.CompletedTask;
@@ -15,9 +22,7 @@ public class PageEnsureRecipeExistsAsyncFilter : IAsyncPageFilter
     {
         context.HandlerArguments.TryGetValue("id", out var id);
         
-        var recipeRepo = context.HttpContext.RequestServices.GetService(typeof(IRecipeRepository)) as IRecipeRepository;
-
-        if (id is int recipeId && !await recipeRepo?.DoesEntityExist(recipeId)!)
+        if (id is int recipeId && !await _recipeRepo.DoesEntityExist(recipeId)!)
         {
             context.Result = new NotFoundResult();
         }

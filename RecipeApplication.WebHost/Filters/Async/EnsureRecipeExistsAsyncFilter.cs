@@ -7,20 +7,18 @@ namespace RecipeApplication.Filters.Async;
 
 public class EnsureRecipeExistsAsyncFilter : IAsyncActionFilter
 {
-    private readonly IRecipesService _service;
+    private readonly IRecipeRepository _recipeRepo;
 
-    public EnsureRecipeExistsAsyncFilter(IRecipesService service)
+    public EnsureRecipeExistsAsyncFilter(IRecipeRepository recipeRepo)
     {
-        _service = service;
+        _recipeRepo = recipeRepo;
     }
 
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         context.ActionArguments.TryGetValue("id", out var id);
-        
-        var recipeRepo = context.HttpContext.RequestServices.GetService(typeof(IRecipeRepository)) as IRecipeRepository;
 
-        if (id is int recipeId && !await recipeRepo?.DoesEntityExist(recipeId)!)
+        if (id is int recipeId && !await _recipeRepo.DoesEntityExist(recipeId)!)
         {
             context.Result = new NotFoundResult();
         }
