@@ -5,7 +5,6 @@ using RecipeApplication.Core.Domain.Models;
 using RecipeApplication.DataAccess;
 using RecipeApplication.DataAccess.Repositories;
 using RecipeApplication.DataAccess.Repositories.Sql;
-using RecipeApplication.Filters.Sync;
 using RecipeApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,10 +28,14 @@ services.AddDbContext<AppDbContext>(options =>
 
     options.UseSqlServer(connection);
 });
+services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+}).AddEntityFrameworkStores<AppDbContext>();
+
 services.AddScoped<IRecipeRepository, RecipeRepository>();
 services.AddScoped<IRepository<Recipe>, SqlRepository<Recipe>>();
 services.AddScoped<IRecipesService, RecipesService>();
-//services.AddScoped<FeatureEnabledAttribute>();
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //Add filters globally both for API and Razor Pages. Currently disabled
@@ -55,6 +58,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

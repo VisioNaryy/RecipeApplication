@@ -4,9 +4,9 @@ using RecipeApplication.Models;
 
 namespace RecipeApplication.Profiles;
 
-public class RecipeApplicationProfile : Profile
+public class AutoMapperProfiles : Profile
 {
-    public RecipeApplicationProfile()
+    public AutoMapperProfiles()
     {
         // Recipes mapping
         CreateMap<Recipe, RecipeDetails>();
