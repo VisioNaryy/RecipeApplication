@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RecipeApplication.DataAccess.Repositories;
-using RecipeApplication.Services;
 
 namespace RecipeApplication.Filters.Async;
 

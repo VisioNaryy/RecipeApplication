@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RecipeApplication.Core.Domain.Models;
 
 namespace RecipeApplication.DataAccess.Repositories.Sql;

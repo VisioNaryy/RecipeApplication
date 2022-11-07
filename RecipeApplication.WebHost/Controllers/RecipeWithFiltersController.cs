@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecipeApplication.Filters.Async;
 using RecipeApplication.Filters.Sync;
 using RecipeApplication.Models;
@@ -7,9 +8,9 @@ using RecipeApplication.Services;
 namespace RecipeApplication.Controllers;
 
 [Route("api/[controller]/[action]")]
-//[ServiceFilter(typeof(FeatureEnabledAttribute))]
 [FeatureEnabled]
 [HandleException]
+[Authorize]
 public class RecipeWithFiltersController : ControllerBase
 {
     private readonly IRecipesService _service;
@@ -19,6 +20,7 @@ public class RecipeWithFiltersController : ControllerBase
         _service = service;
     }
     
+    [AllowAnonymous]
     [HttpGet("{id}"), ValidateModel, EnsureRecipeExistsAsync, AddLastModifedHeader]
     public async Task<IActionResult> Get(int id)
     {
@@ -28,9 +30,9 @@ public class RecipeWithFiltersController : ControllerBase
     }
     
     [HttpPost("{id}"), ValidateModel, EnsureRecipeExistsAsync]
-    public async Task<IActionResult> Edit(int id, [FromBody] RecipeToUpdate command)
+    public async Task<IActionResult> Edit(int id, [FromBody] RecipeToUpdate recipeToUpdate)
     {
-        await _service.UpdateRecipe(command);
+        await _service.UpdateRecipe(recipeToUpdate);
         
         return Ok();
     }

@@ -21,4 +21,6 @@ public class RecipeBase
     
     [DisplayName("Vegan?")]
     public bool IsVegan { get; set; }
+    
+    public string? CreatedById { get; set; }
 }

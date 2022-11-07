@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RecipeApplication.Filters.Async;
 using RecipeApplication.Models;
@@ -9,13 +10,15 @@ namespace RecipeApplication.Pages.Recipes;
 [PageEnsureRecipeExistsAsync]
 public class View : PageModel
 {
-    public RecipeDetails? Recipe { get; set; } = new();
-    
     private readonly IRecipesService _service;
+    private readonly IAuthorizationService _authService;
+    public RecipeDetails? Recipe { get; set; } = new();
+    public bool CanEditRecipe { get; set; }
 
-    public View(IRecipesService service)
+    public View(IRecipesService service, IAuthorizationService authService)
     {
         _service = service;
+        _authService = authService;
     }
     
     public async Task<IActionResult> OnGetAsync(int id)
@@ -28,6 +31,11 @@ public class View : PageModel
             // TODO: Add status code pages middleware to show friendly 404 page
             return NotFound();
         }
+        
+        var authResult = await _authService.AuthorizeAsync(User, Recipe, "IsRecipeOwner");
+        
+        CanEditRecipe = authResult.Succeeded;
+        
         return Page();
     }
     

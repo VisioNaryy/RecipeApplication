@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeApplication.DataAccess.Repositories;
-using RecipeApplication.Filters.Sync;
 using RecipeApplication.Models;
 using RecipeApplication.Services;
 

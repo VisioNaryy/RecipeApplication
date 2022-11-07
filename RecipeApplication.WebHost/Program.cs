@@ -1,5 +1,6 @@
-using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using RecipeApplication.Authorization;
 using RecipeApplication.Core.Abstractions.Repositories;
 using RecipeApplication.Core.Domain.Models;
 using RecipeApplication.DataAccess;
@@ -36,6 +37,14 @@ services.AddDefaultIdentity<ApplicationUser>(options =>
 services.AddScoped<IRecipeRepository, RecipeRepository>();
 services.AddScoped<IRepository<Recipe>, SqlRepository<Recipe>>();
 services.AddScoped<IRecipesService, RecipesService>();
+services.AddScoped<IAuthorizationHandler, IsRecipeOwnerHandler>();
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("IsRecipeOwner", policyBuilder =>
+    {
+        policyBuilder.AddRequirements(new IsRecipeOwnerRequirement());
+    });
+});
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //Add filters globally both for API and Razor Pages. Currently disabled
