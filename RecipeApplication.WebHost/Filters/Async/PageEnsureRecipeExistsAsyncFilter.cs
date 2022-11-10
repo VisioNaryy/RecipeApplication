@@ -21,13 +21,13 @@ public class PageEnsureRecipeExistsAsyncFilter : IAsyncPageFilter
     public async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
     {
         context.HandlerArguments.TryGetValue("id", out var id);
-        
-        if (id is int recipeId && !await _recipeRepo.DoesEntityExist(recipeId)!)
+          
+        if (id is int recipeId && !await _recipeRepo.DoesEntityExist(recipeId))
         {
             context.Result = new NotFoundResult();
         }
-
-        await next();
+        else
+            await next();
     }
 }
 
