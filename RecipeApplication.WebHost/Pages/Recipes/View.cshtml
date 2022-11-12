@@ -7,12 +7,9 @@
 
 <h2>@Model.Recipe.Name</h2>
 <form asp-page-handler="Delete" asp-route-id="@Model.Recipe.Id.ToString()">
-    <p>
-        @if (Model.CanEditRecipe)
-        {
-            <a asp-page="Edit" asp-route-id="@Model.Recipe.Id.ToString()" class="btn btn-primary">Edit</a>
-            <button class="btn btn-danger">Delete</button>
-        }
+    <p if="Model.CanEditRecipe">
+        <a asp-page="Edit" asp-route-id="@Model.Recipe.Id.ToString()" class="btn btn-primary">Edit</a>
+        <button class="btn btn-danger">Delete</button>
     </p>
 </form>
 <p>@Model.Recipe?.Method</p>
