@@ -1,3 +1,5 @@
+using System.Net.Mime;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using RecipeApplication.Authorization;
@@ -6,6 +8,8 @@ using RecipeApplication.Core.Domain.Models;
 using RecipeApplication.DataAccess;
 using RecipeApplication.DataAccess.Repositories;
 using RecipeApplication.DataAccess.Repositories.Sql;
+using RecipeApplication.Extensions;
+using RecipeApplication.Middleware;
 using RecipeApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,14 +51,11 @@ services.AddAuthorization(options =>
 });
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//Add filters globally both for API and Razor Pages. Currently disabled
-// services.AddControllers(options =>
-// {
-//     options.Filters.Add<LogResourceFilter>();
-// });
-
 // Use services
 var app = builder.Build();
+
+// Custom middleware
+app.UseSecurityHeaders();
 
 if (!app.Environment.IsDevelopment())
 {
