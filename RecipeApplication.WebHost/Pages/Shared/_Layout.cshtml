@@ -29,8 +29,13 @@
     </nav>
 </header>
 <div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
+    <main role="main" class="pb-3 row">
+        <div class="col-8">
+            @RenderBody()
+        </div>
+        <div class="col-4">
+            <vc:my-recipes></vc:my-recipes>
+        </div>
     </main>
 </div>
 
@@ -38,7 +43,9 @@
     <div class="container">
         &copy; 2022 - RecipeApplication.WebHost
     </div>
-    <system-info add-os="true" add-machine="true"></system-info>
+    <environment exclude="Production">
+        <system-info add-os="true" add-machine="true"></system-info>
+    </environment>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

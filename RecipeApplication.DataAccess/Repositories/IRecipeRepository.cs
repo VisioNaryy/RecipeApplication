@@ -8,4 +8,6 @@ public interface IRecipeRepository : IRepository<Recipe>
     Task<Recipe?> GetExistingRecipe(int id);
 
     Task DeleteRecipe(Recipe recipe);
+
+    Task<IEnumerable<Recipe>> GetUserRecipes(string userId, int numberOfRecipes);
 }

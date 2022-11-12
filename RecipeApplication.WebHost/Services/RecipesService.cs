@@ -72,4 +72,11 @@ public class RecipesService : IRecipesService
 
         return _mapper.Map<Recipe, RecipeToUpdate>(recipe!);
     }
+
+    public async Task<IEnumerable<RecipeSummary>> GetUserRecipeSummary(string userId, int numberOfRecipes)
+    {
+        var recipes = await _recipeRepo.GetUserRecipes(userId, numberOfRecipes);
+
+        return _mapper.Map<IEnumerable<RecipeSummary>>(recipes);
+    }
 }

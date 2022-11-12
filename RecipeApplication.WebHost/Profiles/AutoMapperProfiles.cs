@@ -25,6 +25,9 @@ public class AutoMapperProfiles : Profile
         CreateMap<RecipeToUpdate, Recipe>()
             .ForMember(dest => dest.TimeToCook, opt => opt.MapFrom(src => new TimeSpan(src.TimeToCookHrs, src.TimeToCookMins, 0)))
             .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => DateTimeOffset.UtcNow));
+
+        CreateMap<Recipe, RecipeSummary>()
+            .ForMember(dest => dest.TimeToCook, opt => opt.MapFrom(src => src.TimeToCook.ToString()));
         
         // Ingredients mapping
         CreateMap<IngredientToCreate, Ingredient>();

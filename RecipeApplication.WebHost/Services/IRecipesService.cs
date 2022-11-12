@@ -12,4 +12,5 @@ public interface IRecipesService
     Task<IEnumerable<RecipeSummary>> GetRecipes();
     Task<RecipeDetails?> GetRecipeDetails(int recipeId);
     Task<RecipeToUpdate?> GetRecipeForUpdate(int recipeId);
+    Task<IEnumerable<RecipeSummary>> GetUserRecipeSummary(string userId, int numberOfRecipes);
 }

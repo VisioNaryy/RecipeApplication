@@ -23,4 +23,13 @@ public class RecipeRepository : SqlRepository<Recipe>, IRecipeRepository
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<Recipe>> GetUserRecipes(string userId, int numberOfRecipes)
+    {
+        return await _context.Recipes
+            .Where(x => x.CreatedById == userId)
+            .OrderBy(x => x.LastModified)
+            .Take(numberOfRecipes)
+            .ToListAsync();
+    }
 }
