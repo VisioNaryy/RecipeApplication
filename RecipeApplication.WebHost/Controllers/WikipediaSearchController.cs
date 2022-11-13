@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 using RecipeApplication.SyncDataServices;
 
 namespace RecipeApplication.Controllers;
 
+[ApiController]
 [Route("api/[controller]/[action]")]
 public class WikipediaSearchController : ControllerBase
 {

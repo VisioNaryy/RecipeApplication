@@ -1,12 +1,16 @@
-﻿namespace RecipeApplication.SyncDataServices;
+﻿using RecipeApplication.Policies;
+
+namespace RecipeApplication.SyncDataServices;
 
 public class WikipediaClient : IWikipediaClient
 {
     private readonly HttpClient _httpClient;
+    private readonly IClientPolicy _clientPolicy;
 
-    public WikipediaClient(HttpClient httpClient)
+    public WikipediaClient(HttpClient httpClient, IClientPolicy clientPolicy)
     {
         _httpClient = httpClient;
+        _clientPolicy = clientPolicy;
     }
 
     public async Task<string> GetTitlesForTerm(string term)
@@ -15,7 +19,7 @@ public class WikipediaClient : IWikipediaClient
 
         var queryString = QueryString.Create(queryParams!).ToUriComponent();
         
-        var response = await _httpClient.GetAsync(queryString);
+        var response = await _clientPolicy.ExponentialHttpRetry.ExecuteAsync(() => _httpClient.GetAsync(queryString));
         
         return await response.Content.ReadAsStringAsync();
     }

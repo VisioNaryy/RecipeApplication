@@ -1,7 +1,3 @@
-using System.Net.Mime;
-using System.Reflection;
-using System.Text.Json;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +8,7 @@ using RecipeApplication.DataAccess;
 using RecipeApplication.DataAccess.Repositories;
 using RecipeApplication.DataAccess.Repositories.Sql;
 using RecipeApplication.Extensions;
-using RecipeApplication.Middleware;
-using RecipeApplication.Models;
+using RecipeApplication.Policies;
 using RecipeApplication.Services;
 using RecipeApplication.SyncDataServices;
 using RecipeApplication.Validation;
@@ -64,6 +59,8 @@ services.AddHttpClient<IWikipediaClient, WikipediaClient>(client =>
 {
     client.BaseAddress = new Uri(configuration.GetValue<string>("WikipediaApiAddress")!);
 });
+services.AddSingleton<IClientPolicy, ClientPolicy>();
+
 // Use services
 var app = builder.Build();
 

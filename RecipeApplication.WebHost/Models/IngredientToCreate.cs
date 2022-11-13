@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RecipeApplication.Models;
+﻿namespace RecipeApplication.Models;
 
 public class IngredientToCreate
 {
