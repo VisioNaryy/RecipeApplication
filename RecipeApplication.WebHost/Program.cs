@@ -15,6 +15,7 @@ using RecipeApplication.Extensions;
 using RecipeApplication.Middleware;
 using RecipeApplication.Models;
 using RecipeApplication.Services;
+using RecipeApplication.SyncDataServices;
 using RecipeApplication.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,6 +60,10 @@ services.AddAuthorization(options =>
     });
 });
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+services.AddHttpClient<IWikipediaClient, WikipediaClient>(client =>
+{
+    client.BaseAddress = new Uri(configuration.GetValue<string>("WikipediaApiAddress")!);
+});
 // Use services
 var app = builder.Build();
 
