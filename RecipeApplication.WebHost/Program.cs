@@ -43,6 +43,7 @@ services.AddDbContext<AppDbContext>(options =>
 services.AddDefaultIdentity<ApplicationUser>(options => { options.SignIn.RequireConfirmedAccount = true; })
     .AddEntityFrameworkStores<AppDbContext>();
 services.AddScoped<IRecipeRepository, RecipeRepository>();
+services.Decorate<IRecipeRepository, CachedRecipeRepository>();
 services.AddScoped<IRepository<Recipe>, SqlRepository<Recipe>>();
 services.AddScoped<IRecipesService, RecipesService>();
 services.AddScoped<IAuthorizationHandler, IsRecipeOwnerHandler>();
