@@ -17,17 +17,15 @@ public class RecipeRepository : SqlRepository<Recipe>, IRecipeRepository
         return await _context.Recipes.Include(x => x.Ingredients).SingleOrDefaultAsync(x => !x.IsDeleted && x.Id == id);
     }
 
-    public async Task DeleteRecipe(Recipe recipe)
+    public Task DeleteRecipe(Recipe recipe)
     {
-        recipe.IsDeleted = true;
-
-        await _context.SaveChangesAsync();
+        return Task.FromResult(recipe.IsDeleted = true);
     }
 
     public async Task<IEnumerable<Recipe>> GetUserRecipes(string userId, int numberOfRecipes)
     {
         return await _context.Recipes
-            .Where(x => x.CreatedById == userId)
+            .Where(x => x.CreatedById == userId && !x.IsDeleted)
             .OrderBy(x => x.LastModified)
             .Take(numberOfRecipes)
             .ToListAsync();

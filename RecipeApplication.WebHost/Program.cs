@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using RecipeApplication.Authorization;
 using RecipeApplication.Core.Abstractions.Repositories;
 using RecipeApplication.Core.Domain.Models;
@@ -42,9 +43,9 @@ services.AddDbContext<AppDbContext>(options =>
 });
 services.AddDefaultIdentity<ApplicationUser>(options => { options.SignIn.RequireConfirmedAccount = true; })
     .AddEntityFrameworkStores<AppDbContext>();
-services.AddScoped<IRecipeRepository, RecipeRepository>();
-services.Decorate<IRecipeRepository, CachedRecipeRepository>();
 services.AddScoped<IRepository<Recipe>, SqlRepository<Recipe>>();
+services.AddScoped<IRecipeRepository, RecipeRepository>();
+//services.Decorate<IRecipeRepository, CachedRecipeRepository>();
 services.AddScoped<IRecipesService, RecipesService>();
 services.AddScoped<IAuthorizationHandler, IsRecipeOwnerHandler>();
 services.AddAuthorization(options =>

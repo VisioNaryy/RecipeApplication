@@ -13,14 +13,14 @@ public class CachedRecipeRepository : IRecipeRepository
         _recipeRepository = recipeRepository;
         _memoryCache = memoryCache;
     }
-    public Task<Recipe?> GetByIdAsync(int id)
+    public async Task<Recipe?> GetByIdAsync(int id)
     {
         var key = $"member-{id}";
         
-        return _memoryCache.GetOrCreateAsync(key, entry =>
+        return await _memoryCache.GetOrCreateAsync(key, entry =>
         {
             entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(2));
-
+        
             return _recipeRepository.GetByIdAsync(id);
         });
     }
@@ -50,11 +50,11 @@ public class CachedRecipeRepository : IRecipeRepository
         return _recipeRepository.SaveChangesAsync();
     }
 
-    public Task<Recipe?> GetExistingRecipe(int id)
+    public async Task<Recipe?> GetExistingRecipe(int id)
     {
         var key = $"member-{id}";
         
-        return _memoryCache.GetOrCreateAsync(key, entry =>
+        return await _memoryCache.GetOrCreateAsync(key, entry =>
         {
             entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(2));
 

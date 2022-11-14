@@ -15,30 +15,22 @@ public class SqlRepository<TEntity> : IRepository<TEntity> where TEntity : BaseE
     
     public async Task<TEntity?> GetByIdAsync(int id)
     {
-        var entity = await _context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
-
-        return entity;
+        return await _context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
-        var entities = await _context.Set<TEntity>().Where(x => !x.IsDeleted).ToListAsync();
-        
-        return entities;
+        return await _context.Set<TEntity>().Where(x => !x.IsDeleted).ToListAsync();
     }
 
     public async Task AddAsync(TEntity entity)
     {
         await _context.Set<TEntity>().AddAsync(entity);
-
-        await _context.SaveChangesAsync();
     }
 
     public async Task RemoveAsync(TEntity entity)
     {
         _context.Set<TEntity>().Remove(entity);
-
-        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> DoesEntityExist(int id)
@@ -48,6 +40,6 @@ public class SqlRepository<TEntity> : IRepository<TEntity> where TEntity : BaseE
     
     public async Task<int> SaveChangesAsync()
     {
-        return await (_context.SaveChangesAsync());
+        return await _context.SaveChangesAsync();
     }
 }
